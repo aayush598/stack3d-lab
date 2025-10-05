@@ -5,7 +5,7 @@ export default function ESPDataViewer() {
   const [data, setData] = useState('Waiting for data...');
 
   useEffect(() => {
-    const ws = new WebSocket('wss://your-domain.com/api/socket');
+    const ws = new WebSocket('wss://stack3d-lab.vercel.app/api/socket');
 
     ws.onopen = () => console.log('Connected to ESP32 socket ✅');
     ws.onmessage = (msg) => setData(msg.data);
