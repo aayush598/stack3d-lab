@@ -5,14 +5,14 @@ export default function ESPDataViewer() {
   const [data, setData] = useState('Waiting for ESP32 data...');
 
   useEffect(() => {
-    const ws = new WebSocket('wss://stack3d-lab-ws.vercel.app'); // same URL
+  const ws = new WebSocket('wss://stack3d-lab-ws.onrender.com'); // use ws:// not wss://
+  ws.onopen = () => console.log('✅ Connected to WebSocket');
+  ws.onmessage = (msg) => setData(msg.data);
+  ws.onclose = () => console.log('❌ Socket closed');
 
-    ws.onopen = () => console.log('✅ Connected to WebSocket');
-    ws.onmessage = (msg) => setData(msg.data);
-    ws.onclose = () => console.log('❌ Socket closed');
+  return () => ws.close();
+}, []);
 
-    return () => ws.close();
-  }, []);
 
   return (
     <div className="p-4 bg-gray-800 text-white rounded-lg text-center">
